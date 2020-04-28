@@ -1,4 +1,3 @@
-import 'package:animation_controlads/app/modules/detail_page/detail_page.dart';
 import 'package:animation_controlads/app/widgets/location_card_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
@@ -31,19 +30,7 @@ class _TravelCardState extends State<TravelCard> {
 
   void _onTap() {
     if (_selected) {
-      final page = DetailPage(
-        locationCard: widget.item,
-      );
-      Navigator.of(context).push(
-        PageRouteBuilder(
-            transitionDuration: const Duration(milliseconds: 700),
-            pageBuilder: (_, animatio1, animation2) => page,
-            transitionsBuilder: (_, animatio1, animation2, child) =>
-                FadeTransition(
-                  opacity: animatio1,
-                  child: child,
-                )),
-      );
+      Modular.to.pushNamed('/detail', arguments: widget.item);
     } else {
       setState(() {
         _selected = !_selected;
@@ -93,7 +80,7 @@ class _TravelCardState extends State<TravelCard> {
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.end,
                           children: <Widget>[
-                            Text('La crescent Motrosa, cad4354'),
+                            Text('${widget.item.title}'),
                             Padding(
                               padding: const EdgeInsets.symmetric(
                                   horizontal: 12.0, vertical: 8.0),

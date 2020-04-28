@@ -18,8 +18,10 @@ class AppModule extends MainModule {
           Modular.initialRoute,
           module: HomeModule(),
         ),
-        Router('/detail',
-            module: DetailModule(), transition: TransitionType.noTransition),
+        Router(
+          '/detail',
+          module: DetailModule(),
+        ),
       ];
 
   @override

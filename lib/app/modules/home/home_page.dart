@@ -1,6 +1,7 @@
 import 'package:animation_controlads/app/widgets/location_card_widget.dart';
 import 'package:animation_controlads/app/widgets/trevel_card_widget.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'home_controller.dart';
 
@@ -61,36 +62,24 @@ class _HomePageState extends ModularState<HomePage, HomeController> {
         ),
         Scaffold(
           backgroundColor: Colors.transparent,
-          appBar: AppBar(
-            backgroundColor: Colors.transparent,
-            elevation: 0,
-            title: Text('TOFIND'),
-            actions: <Widget>[
-              IconButton(
-                  icon: Icon(
-                    Icons.location_searching,
-                    color: Colors.white,
-                  ),
-                  onPressed: () => null)
-            ],
-          ),
           body: PageView.builder(
-            itemCount: 4,
-            onPageChanged: (page) {
-              setState(() {
-                _currentPage = page;
-              });
-            },
-            controller: PageController(viewportFraction: 0.7),
-            itemBuilder: (_, index) => AnimatedOpacity(
-              duration: duration,
-              child: TravelCard(
-                item: location[index],
-                itemSelected: _currentPage == index,
-              ),
-              opacity: _currentPage == index ? 1.0 : 0.4,
-            ),
-          ),
+              itemCount: 4,
+              onPageChanged: (page) {
+                controller.currentPage = page;
+              },
+              controller: PageController(viewportFraction: 0.7),
+              itemBuilder: (_, index) {
+                return Observer(
+                  builder: (_) => AnimatedOpacity(
+                    duration: duration,
+                    child: TravelCard(
+                      item: location[index],
+                      itemSelected: controller.currentPage == index,
+                    ),
+                    opacity: controller.currentPage == index ? 1.0 : 0.4,
+                  ),
+                );
+              }),
         ),
       ],
     );

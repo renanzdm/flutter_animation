@@ -42,9 +42,10 @@ class _DetailPageState extends ModularState<DetailPage, DetailController> {
           ),
           ...List.generate(10, (index) {
             return ListTile(
-              title: Text('Testanmdo somente'),
-              subtitle: Text('kljdklajdlasdjaslkdjasjdlsajdaslkj'),
+              title: Text('Testando somente'),
+              subtitle: Text('${widget.locationCard.title}'),
               leading: CircleAvatar(
+                backgroundImage: NetworkImage(widget.locationCard.title),
                 radius: 15,
               ),
             );
